@@ -16,29 +16,7 @@ Error handling and success messages for form submissions.
 
 Easy to deploy to Vercel.
 
-Project Structure
-gibertOsuagwu/
-│
-├─ app/
-│   ├─ api/
-│   │   ├─ submit-tribute/
-│   │   │   └─ route.ts          # API route handling form submissions
-│   │   └─ creds/
-│   │       └─ service-account.json  # Google service account credentials (ignored by Git)
-│   ├─ components/
-│   │   ├─ header.tsx
-│   │   ├─ footer.tsx
-│   │   └─ tribute-form.tsx      # Tribute form component
-│   ├─ globals.css
-│   └─ page.tsx                  # Home page layout
-│
-├─ public/
-│   └─ images/                   # Images for the website
-│
-├─ .env.local                     # Environment variables (ignored by Git)
-├─ .gitignore
-├─ package.json
-└─ README.md
+
 
 Getting Started
 1. Clone the repository
