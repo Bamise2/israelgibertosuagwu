@@ -1,17 +1,23 @@
 import { google } from "googleapis"
 import { NextResponse } from "next/server"
-import creds from "./cred/tributeform-115bd4c825ac.json" 
 
 export async function POST(req: Request) {
   try {
     const { firstName, lastName, message } = await req.json()
 
     if (!firstName || !lastName || !message) {
-      return NextResponse.json(
-        { error: "First name, last name, and message are required" },
-        { status: 400 }
-      )
+      return NextResponse.json({ error: "All fields are required" }, { status: 400 })
     }
+
+    const sheetId = process.env.GOOGLE_SHEET_ID
+    const encodedCreds = process.env.GOOGLE_CREDENTIALS
+
+    if (!sheetId || !encodedCreds) {
+      return NextResponse.json({ error: "Missing configuration" }, { status: 500 })
+    }
+
+    // Decode the Base64 JSON
+    const creds = JSON.parse(Buffer.from(encodedCreds, "base64").toString("utf-8"))
 
     const client = new google.auth.JWT({
       email: creds.client_email,
@@ -20,7 +26,7 @@ export async function POST(req: Request) {
     })
 
     const sheets = google.sheets({ version: "v4", auth: client })
-    const sheetId = process.env.GOOGLE_SHEET_ID
+
     const values = [[firstName, lastName, message, new Date().toLocaleDateString()]]
 
     await sheets.spreadsheets.values.append({
