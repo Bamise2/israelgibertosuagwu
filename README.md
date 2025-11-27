@@ -1,36 +1,118 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Tribute Website
 
-## Getting Started
+A tribute website for Late Chief Israel Gilbert Osuagwu built with Next.js, TypeScript, Tailwind CSS, and Google Sheets. Users can submit tributes via a form, which are stored directly in a Google Sheet using a service account.
 
-First, run the development server:
+Features
 
-```bash
+Modern Next.js 16 app with server-side rendering and client-side interactions.
+
+Responsive layout using Tailwind CSS.
+
+Tribute submission form with First Name, Last Name, and Message fields.
+
+Data is appended to a Google Sheet via Google Sheets API using a service account.
+
+Error handling and success messages for form submissions.
+
+Easy to deploy to Vercel.
+
+Project Structure
+gibertOsuagwu/
+│
+├─ app/
+│   ├─ api/
+│   │   ├─ submit-tribute/
+│   │   │   └─ route.ts          # API route handling form submissions
+│   │   └─ creds/
+│   │       └─ service-account.json  # Google service account credentials (ignored by Git)
+│   ├─ components/
+│   │   ├─ header.tsx
+│   │   ├─ footer.tsx
+│   │   └─ tribute-form.tsx      # Tribute form component
+│   ├─ globals.css
+│   └─ page.tsx                  # Home page layout
+│
+├─ public/
+│   └─ images/                   # Images for the website
+│
+├─ .env.local                     # Environment variables (ignored by Git)
+├─ .gitignore
+├─ package.json
+└─ README.md
+
+Getting Started
+1. Clone the repository
+git clone <repository_url>
+cd gibertOsuagwu
+
+2. Install dependencies
+npm install
+
+3. Set up environment variables
+
+Create a .env.local file in the root directory:
+
+GOOGLE_SHEET_ID=your_google_sheet_id_here
+
+
+Note: No API key is required. Authentication is handled via the service account JSON.
+
+4. Add the service account JSON
+
+Place the JSON in app/api/creds/service-account.json.
+
+Add it to .gitignore:
+
+app/api/creds/service-account.json
+
+
+Share your Google Sheet with the service account email (xxxx@project.iam.gserviceaccount.com) with Editor access.
+
+5. Run the development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Open http://localhost:3000
+ to view the website.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Deploying to Vercel
 
-## Learn More
+Push your project to GitHub.
 
-To learn more about Next.js, take a look at the following resources:
+Create a new project on Vercel and link it to your repository.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Add the .env variable GOOGLE_SHEET_ID in Vercel project settings.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Upload your service account JSON to Vercel via Environment Variables or Secrets (or include it in your repo locally but still ignored in Git).
 
-## Deploy on Vercel
+Deploy.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The form will now submit tributes directly to your Google Sheet.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Dependencies
+
+Next.js 16 – React framework
+
+TypeScript – Type safety
+
+Tailwind CSS – Styling
+
+Googleapis – Google Sheets API client
+
+Troubleshooting
+
+Error: API keys are not supported
+
+Solution: Make sure you are using a service account for writing to Google Sheets. API keys only support read-only access to public sheets.
+
+Image not loading
+
+Ensure images are in the public/images folder and paths in Image components are correct.
+
+Form submissions fail
+
+Make sure your Google Sheet is shared with the service account email with Editor access.
+
+License
+
+This project is open-source and free to use.
